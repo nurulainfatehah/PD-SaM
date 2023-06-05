@@ -85,6 +85,46 @@ span#changespan
 	color: transparent;
 	margin-left: auto;
 	margin-right: auto;
-	
+}
 
+.pic-list{
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	background-size: cover;
+	background-position: center;
+	color: transparent;
+	margin-left: 2px;
+	margin-right: 5px;
+	background-color: green;
+}
+
+#main {
+	display: inline-flex;
+	width: 100%;
+	height: auto;
+	margin-top: 2px;
+	padding: 5px 10px 5px 10px;
+	flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+#list-box {
+	display: inline-flex;
+	align-items: center;
+	width: 35%;
+	height: 90px;
+	border: 1px solid grey;
+	border-radius: 25px;
+	height: auto;
+	margin-right: 7px;
+	margin-top: 10px;
+	padding: 1px 7px 1px 7px;
+ 
+}
+
+p#list-data{
+	width: 70%;
+	align-content: center;
 }
