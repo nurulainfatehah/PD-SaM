@@ -31,20 +31,20 @@ if(isset($_POST['assign_sv'])){
 	$matricNo = $_GET['matricNo'];
 	$evaluatorID = $_POST['assign_evaluator'];
 
-	$evaluatorID = substr($svID, 0, 10);
-	$evaluatorName = substr($svID, 10);
+	$evaluatorID = substr($evaluatorID, 0, 10);
+	$evaluatorName = substr($evaluatorID, 10);
 
 	$sqlAssign = "UPDATE student SET evaluatorID = '".$evaluatorID."' WHERE matricNo = '".$matricNo."'";
 	if($conn->query($sqlAssign) === TRUE){
 		?>
 		<script type="text/javascript">
-			window.location.replace('user-management.php?reload=successAssignEV');
+			window.location.replace('user-management.php?reload=successAssignSV');
 		</script>
 		<?php
 	}else{
 		?>
 		<script type="text/javascript">
-			window.location.replace('user-management.php?reload=successEV');
+			window.location.replace('user-management.php?reload=successAssignSV');
 		</script>
 		<?php
 	}

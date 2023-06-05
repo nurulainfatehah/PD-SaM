@@ -163,7 +163,7 @@ $resultSupervisorList = $conn->query($sqlSupervisorList);
 		});
 	</script>
 	<style type="text/css">
-		select#assign-sv, select#assign-evaluator{
+		select#assign-sv, select#assign-ev{
 			width: 100%;
 		}
 	</style>

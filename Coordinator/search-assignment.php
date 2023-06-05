@@ -72,6 +72,43 @@ if(isset($_POST['assignment_check'])){
 					}
 									
 				}
+
+				function confirm_assign_ev(obj, name){
+					var name = name;
+					if(obj.value == ""){
+
+					}else{
+						idName = obj.value;
+						lecturerID = idName.substr(0, 9);
+						lecturerName = idName.substr(10);
+						$.confirm({
+							boxWidth: '27%',
+							title: 'Assign Evaluator?',
+							content: 'Are you sure to assign ' + lecturerName + ' as evaluator for ' + name + '?',
+							type: 'green',
+							typeAnimated: true,
+							useBootstrap: false,
+							autoClose: 'cancel|5000',
+							buttons: {
+								confirm: {
+									text: 'Assign',
+									btnClass: 'btn-green',
+									action: function(){
+										obj.form.submit();
+									}			        	
+								},
+								cancel: {
+									text: 'Cancel',
+									btnClass: 'btn-default',
+									action: function(){
+										document.getElementById("assign-ev").selectedIndex=0;
+									}
+								}
+							}
+						});	
+					}
+									
+				}
 			</script>
 			<?php
 			// list of student that have no SV or EV
@@ -143,46 +180,59 @@ if(isset($_POST['assignment_check'])){
 						?>
 					</td>
 					<td>
-						<form name="assign_sv" id="formEV" method="post" action="assign-supervisor-evaluator.php?matricNo=<?php echo $rowNoSVorEV['matricNo'] ?>">
-							<select id="assign-evaluator" name="assign_evaluator" title="assign evaluator" onchange="confirm_assign_ev(this, '<?php echo $rowNoSVorEV["name"] ?>');">
-								<option value="" title="assign evaluator">assign evaluator</option>
-
-								<?php
-								// get records of all lecturer
-								$sqlLecturer = "SELECT lecturerID, name FROM lecturer";
-								$resultLecturer = $conn->query($sqlLecturer);
-								while($rowLecturer = $resultLecturer->fetch_assoc())
-								{	// check total supervised student for each lecturer
-									$sqlTotalEvaluated = "SELECT COUNT(*) AS total FROM student WHERE evaluatorID = '".$rowLecturer['lecturerID']."'";
-									$resultTotalEvaluated = $conn->query($sqlTotalEvaluated);
-									$rowTotalEvaluated = $resultTotalEvaluated->fetch_assoc();
-
-									if($rowTotalEvaluated['total'] > 5)
-									{
-										?>
-										<option disabled title="<?php echo $rowLecturer['lecturerID']; ?>"><?php echo $rowLecturer['name']; ?></option>
-										<?php
-									}else if($rowLecturer['lecturerID'] == $hasSV){
-										?>
-										<option disabled title="<?php echo $rowLecturer['lecturerID']; ?>"><?php echo $rowLecturer['name'] . ' (SV) '; ?></option>
-										<?php
-									}
-									else
-									{
-										?>
-										<option value="<?php echo $rowLecturer['lecturerID'] . $rowLecturer['name'] ?>" title="<?php echo $rowLecturer['name']; ?>">
-											<?php
-											echo $rowLecturer['name'] . " [" . $rowTotalEvaluated['total'] . "]";
-											?>
-										</option>
-										<?php
-									}
-
-
-								}
-								?>
+						<?php
+						if($hasSV == ""){
+							?>
+							<select disabled id="assign-ev" title="Please assign supervisor first">
+								<option selected disabled>Please assign supervisor first</option>
 							</select>
-						</form>
+							<!-- <i title="Please assign supervisor first" style="font-size:11px; padding-left: 14%;">Please assign supervisor first</i> -->
+							<?php
+						}else{
+							?>
+							<form name="assign_ev" id="formEV" method="post" action="assign-supervisor-evaluator.php?matricNo=<?php echo $rowNoSVorEV['matricNo'] ?>">
+								<select id="assign-ev" name="assign_evaluator" title="assign evaluator" onchange="confirm_assign_ev(this, '<?php echo $rowNoSVorEV["name"] ?>');">
+									<option value="" title="assign evaluator">assign evaluator</option>
+
+									<?php
+									// get records of all lecturer
+									$sqlLecturer = "SELECT lecturerID, name FROM lecturer";
+									$resultLecturer = $conn->query($sqlLecturer);
+									while($rowLecturer = $resultLecturer->fetch_assoc())
+									{	// check total supervised student for each lecturer
+										$sqlTotalEvaluated = "SELECT COUNT(*) AS total FROM student WHERE evaluatorID = '".$rowLecturer['lecturerID']."'";
+										$resultTotalEvaluated = $conn->query($sqlTotalEvaluated);
+										$rowTotalEvaluated = $resultTotalEvaluated->fetch_assoc();
+
+										if($rowTotalEvaluated['total'] > 5)
+										{
+											?>
+											<option disabled title="<?php echo $rowLecturer['lecturerID']; ?>"><?php echo $rowLecturer['name']; ?></option>
+											<?php
+										}else if($rowLecturer['lecturerID'] == $hasSV){
+											?>
+											<option disabled title="<?php echo $rowLecturer['lecturerID']; ?>"><?php echo $rowLecturer['name'] . ' (SV) '; ?></option>
+											<?php
+										}else
+										{
+											?>
+											<option value="<?php echo $rowLecturer['lecturerID'] . $rowLecturer['name'] ?>" title="<?php echo $rowLecturer['name']; ?>">
+												<?php
+												echo $rowLecturer['name'] . " [" . $rowTotalEvaluated['total'] . "]";
+												?>
+											</option>
+											<?php
+										}
+
+
+									}
+									?>
+								</select>
+							</form>
+							<?php
+						}
+
+						?>
 					</td>
 				</tr>
 				<?php
