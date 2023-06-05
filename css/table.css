@@ -1,0 +1,28 @@
+table
+{
+	font-family: Roboto-Regular,'Helvetica Neue',Helvetica,Tahoma,Arial,'Sans-serif';
+	
+	
+}
+
+select{
+    width: 300px;
+    text-overflow: ellipsis;
+}
+
+
+tr:nth-child(even)
+{
+	background-color: rgba(234, 231, 220, 0.4);
+}
+
+tr:nth-child(odd)
+{
+	background-color:rgba(234, 231, 220, 1);
+}
+
+tr:hover
+{
+	background-color: rgba(117, 20, 117, 0.2);
+
+}

@@ -1,0 +1,193 @@
+
+.kotakKategori
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	display: inline-flex;
+	margin-top: 30px;
+	margin-left: 38px;
+	height: 100px;
+	width: 260px;
+	border-radius: 35px;
+	background-color: rgba(117, 20, 117, 0.1);
+	
+}
+
+.kotakKategori:hover
+{
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.gambarholder
+{
+	background-color: white;
+	height: 90px;
+	width: 90px;
+	border-radius: 30px;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+#gambarKategori
+{
+	padding-top: 10px;
+	padding-left: 5px;
+}
+
+
+.ayatkategori
+{
+	display: inline-block;
+	width: 120px;
+	margin-left: 15px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.titleKategori
+{
+
+	background-color: ;
+	text-align: left;
+}
+
+.detailKategori
+{
+	text-align: right;
+	background-color: ;
+	font-size: 23px;
+	margin-top: 25px;
+}
+
+.sectionkategori
+{
+	
+	background-color:;
+	width: 80%;
+	margin-top: 30px;
+	margin-left: 10%;	
+
+}
+
+.titleTextHolder{
+	margin-left: 5px;
+	font-size: 16px;
+	font-family: 'Helvetica Neue', sans-serif;
+	padding-left: 0px;
+	color: black;
+	font-weight: bold;
+}
+
+.hide
+{
+	margin-top: 0;
+}
+
+.syaratupload
+{
+	font-size: 9px;
+	color: red;
+	display: inline-block;
+}
+
+.kontenkategori
+{
+	/*padding-left: 20px;*/
+}
+
+.holder
+{
+	margin-top: 20px;
+	height: 23px;
+	padding-top: 5px;
+	width: 100%;
+	border-radius: 10px;
+	border-color: gray;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-bottom-style: solid;
+  	border-width: 2px;
+  	text-align: center;
+  	
+  	
+}
+.holderLampiran
+{
+	margin-top: 20px;
+	height: 23px;
+	padding-top: 5px;
+	width: 100%;
+	border-radius: 10px;
+	border-color: gray;
+	
+  	border-width: 2px;
+  	text-align: center;
+	background: linear-gradient(to right, rgba(234, 231, 220, 1) 0%,  rgba(117, 20, 117, 0.4) 100%);
+}
+
+.dokumendokumen
+{
+	width: 95%;
+	margin-left: 2.5%;
+	max-height: 200px;
+}
+
+.dokumenlist
+{
+
+	width: 98%;
+	display: inline-block;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	padding: 10px 5px 20px 0px;
+	height: 110px;
+	overflow: scroll;
+
+}
+
+.dokumenlist p
+{
+	display: inline-flex;
+	margin-left: 6%;
+	margin-right: 5px;
+}
+
+
+select
+{
+	width: 100px;
+}
+
+
+.trhover:hover
+{
+	background-color: rgba(117, 20, 117, 0.2);
+
+}
+
+#sah:hover
+{
+	color: green;
+}
+
+#tolak:hover
+{
+	color: red;
+}
+
+#sah
+{
+	color: rgba(117, 20, 117, 0.8);
+}
+
+#tolak
+{
+	color: rgba(117, 20, 117, 0.8);
+}
+
+#kemaskiniTajuk:hover
+{
+	color: green;
+}
+
+.dashboard{
+	padding: 0 10px 30px 10px;
+}
