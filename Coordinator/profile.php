@@ -83,8 +83,71 @@ if(isset($_POST['submitpicture'])){
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+	<style type="text/css">
+		.maklumat
+		{
+			display: inline-flex;
+			width: 88%;
+			margin-left: 5%;
+			margin-right: auto;		
+			height: auto;
+			margin-top: 2px;
+			padding: 5px 10px 5px 10px;
+			flex-wrap: wrap;
+		    align-content: center;
+		    justify-content: center;
+		}
+
+		.list-box{
+			width:35%;
+			height: 90px;
+			border: 1px solid grey;
+			border-radius: 25px;
+			height: auto;
+			margin-right: 10px;
+			margin-top: 10px;
+			padding: 7px 7px 10px 7px;
+		}
+
+		.list-profile-pic{
+			border-radius: 50%;
+			height: 60px;
+			width: 60px;
+			background-size: cover;
+			background-position: center;
+			color: transparent;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 	<script type="text/javascript">
+		function viewStudent(obj, name){
+			var matricNo = obj.id;
+			var name = name;
+			$.confirm({
+				boxWidth: '60%',
+				useBootstrap: false,			
+				title: name,
+				cancelButton: false,
+				content: 'url:../ajaxprocess/viewStudent.php?matricNo=' + matricNo,
+				buttons: {
+					ok:{        
+						isHidden: true, // hide the button       
+					},
+					 close: function () {
+        			}
+				}
+				// onContentReady: function () {
+				// 	/*var self = this;
+				// 	this.setContentPrepend('<div>Prepended text</div>');
+				// 	setTimeout(function () {
+				// 		self.setContentAppend('<div>Appended text after 2 seconds</div>');
+				// 	}, 2000);*/
+				// },
+
+			});
+		}
 
 		$( window ).scroll(function() {
 
@@ -633,18 +696,23 @@ else
 				<nav>
 					<ul>
 						<li>
-							<a title="home" href="index.php" ><i style="font-size: 16px;" class="fa fa-home" aria-hidden="true"></i></a>
+							<a title="home" href="../Coordinator"><i style="font-size: 16px;" class="fa fa-home" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a href="tiket.php" title="tiket">
-								<i style="font-size: 16px" class="fa fa-ticket" aria-hidden="true"></i>
+							<a href="supervision.php" title="supervision" title="">
+								<i style="font-size: 16px" class="fa fa-folder-open" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li>
+							<a href="forum-milestones.php" title="forum and milestones" title="">
+								<i style="font-size: 16px" class="fa fa-calendar-check-o" aria-hidden="true"></i>
 							</a>
 						</li>
 						<li>
 							<a title="user management" href="user-management.php"><i style="font-size: 16px;" class="fa fa-users" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a target="_blank" href="laporan.php" title="laporan">
+							<a href="report.php" target="_blank" title="report">
 								<i style="font-size: 16px;" class="fa fa-pie-chart" aria-hidden="true"></i>
 							</a>
 						</li>
@@ -653,7 +721,7 @@ else
 							if(empty($rowRekodPensyarah['picture']))
 							{
 								?>
-								<a title="profile" href="profile.php" style="text-decoration-style: none; text-decoration: none; padding-right: 20px ; padding-bottom: 0; padding-top: 0;  padding-left: 0px ">
+								<a title="profile" href="profile.php" style="text-decoration-style: none; text-decoration: none; padding-right: 20px ; padding-bottom: 0; padding-top: 0;  padding-left: 0px">
 									<div class="profile-picnohover" style="background-image: url('../attachment/imgsource/lecturer1.png');" >
 									</div>
 								</a>
@@ -662,8 +730,7 @@ else
 							else
 							{
 								?>
-								<a title="profail" href="profail.php" style="text-decoration-style: none; text-decoration: none; padding-right: 20px ; padding-bottom: 0; padding-top: 0; padding-left: 0px">
-
+								<a title="profile" href="profile.php" style="text-decoration-style: none; text-decoration: none; padding-right: 20px ; padding-bottom: 0; padding-top: 0;  padding-left: 0px">
 									<div class="profile-picnohover" style="background-image: url('../attachment/profile/<?php echo $rowRekodPensyarah['picture']?>');" >
 									</div>
 								</a>
@@ -756,7 +823,7 @@ else
 			<div class="information">
 				<table align="center" width="90%">
 					<tr>
-						<td style="width: 36%">
+						<td style="width: 37%">
 							PASSWORD
 						</td>
 						<td>
@@ -779,105 +846,74 @@ else
 				<input type="hidden" name="hiddenusername" id="hiddenusername" value="<?php echo $id_pensyarah ?>"><input type="hidden" name="hiddenpw" id="hiddenpw" value="<?php echo $rowRekodPensyarah['password'] ?>">
 				</center>
 
-			<div class="informationHolder" style="margin-top: 20px;">
-				SUPERVISED STUDENT
+			<div class="informationHolder" style="margin-top: 15px;">
+				SUPERVISED STUDENT (<?php echo $resultAnakSeliaan->num_rows ?>)
 			</div>
 			<div class="maklumat">
 				<?php
 				if($resultAnakSeliaan->num_rows == 0)
 				{
 					?>
-					<i style="color: gray; text-align: center;">No record of supervised student found</i>
+					<i style="color: gray; text-align: center;">0 record of supervised student found</i>
 					<?php
 				}
 				else{
 					$count = 0;
 						while($rowAnakSeliaan = $resultAnakSeliaan->fetch_assoc()){
 							$count += 1;
-				?>
-					
-						<?php
-						if(empty($rowAnakSeliaan['picture']))
-						{ ?>
-							<div align="center" class="profile-pic" style="background-image: url('../attachment/imgsource/studenticon.png'); margin-left: 40%" >
-							</div>
-							
-							<?php 
-						
-						}
-						else
-						{
 							?>
-							<div align="center" class="profile-pic" style="background-image: url('../attachment/profile/<?php echo $rowAnakSeliaan['picture'] ?>'); margin-left: 40%" >
+							<div class="list-box">
+								<?php
+									
+								if(empty($rowAnakSeliaan['picture']))
+								{ ?>
+									<div align="center" class="list-profile-pic" style="background-image: url('../attachment/imgsource/studenticon.png'); margin-left: 40%" >
+									</div>									
+									<?php								
+								}
+								else
+								{
+									?>
+									<div align="center" class="list-profile-pic" style="background-image: url('../attachment/profile/<?php echo $rowAnakSeliaan['picture'] ?>'); margin-left: 40%" >
+									</div>									
+									<?php
+								}
+								?>
+								<table>
+									<tr>
+										<td style="text-align: center;" colspan="2">
+											<?php
+
+											echo $rowAnakSeliaan['name'];
+
+											?>
+										</td>
+									</tr>
+									<tr>
+										<td width="40%">
+											MATRIC NO
+										</td>
+										<td>
+											<a title="view <?php echo strtolower($rowAnakSeliaan['name']) ?>" onclick="viewStudent(this,'<?php echo $rowAnakSeliaan["name"] ?>')" id="<?php echo $rowAnakSeliaan['matricNo'] ?>"><?php echo $rowAnakSeliaan['matricNo'] ?></a>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											PROJECT TITLE
+										</td>
+										<td>
+											<?php
+											if(empty($rowAnakSeliaan['projectTitle'])){
+												echo '<i>-</i>';
+											}else
+												echo '<i>' . $rowAnakSeliaan['projectTitle'] . '</i>';
+
+											?>
+										</td>
+									</tr>
+								</table>
 							</div>
-							
-							<?php
-						}
-
-						?>
-					<table align="center" width="90%;" style="margin-top: 10px;">
-						<tr>
-							<td style="width: 35%">
-								Supervision Student <?php echo $count ?>
-							</td>
-							<td>
-								<?php
-									
-									echo '<i>' . $rowAnakSeliaan['name'] . '</i>';
-								
-								?>
-							</td>
-						</tr>
-						<tr>
-							<td style="width: 35%">
-								Matric No.
-							</td>
-							<td>
-								<?php
-									
-									echo '<i>' . $rowAnakSeliaan['matricNo'] . '</i>';
-				
-								?>
-							</td>
-						</tr>
-						<tr>
-							<td style="width: 35%">
-								Section/Group
-							</td>
-							<td>
-								<?php
-									
-									echo '<i>' . $rowAnakSeliaan['sectionGroup'] . '</i>';
-				
-								?>
-							</td>
-						</tr>
-						<tr>
-							<td style="width: 35%">
-								Phone
-							</td>
-							<td>
-								<?php
-									
-									echo '<i>' . $rowAnakSeliaan['phone'] . '</i>';
-				
-								?>
-							</td>
-						</tr>
-						<tr>
-							<td style="width: 35%">
-								Project Title
-							</td>
-							<td>
-								<?php
-									
-									echo '<i>' . $rowAnakSeliaan['projectTitle'] . '</i>';
-				
-								?>
-							</td>
-						</tr>
-
-					</table>
+					
 					<br><br>
 			<?php } } ?>
 			</div>

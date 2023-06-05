@@ -36,18 +36,13 @@ if(isset($_GET['matricNo'])){
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="../css/view-profile-popup.css">
-		<link rel="stylesheet" type="text/css" href="../css/header.css">
-		<link rel="stylesheet" type="text/css" href="../css/dashboard.css">
 		<title><?php $row['name'] ?></title>
-		<style type="text/css">
-
-		</style>
 	</head>
 	<body >
 		<hr>
 		<div align="center" style="width: 90%; margin-left: auto; margin-right: auto;">
 
-			<div class="grid-container">
+			<div class="popup-grid-container">
 
 				<div class="grid-child purple" style="padding-top: 30%; padding-bottom: 20%;">
 					<!--Grid Column 1-->
@@ -56,13 +51,13 @@ if(isset($_GET['matricNo'])){
 					if(empty($row['picture']))
 					{
 						?>
-						<div class="profile-picnohoverbig" style="background-image: url('../attachment/imgsource/studenticon.png'); margin-top: 10%; margin-bottom: 10%" >
+						<div class="popup-profile-picnohoverbig" style="background-image: url('../attachment/imgsource/studenticon.png'); margin-top: 10%; margin-bottom: 10%" >
 							<?php 
 						}
 						else
 						{
 							?>
-							<div class="profile-picnohoverbig" style="background-image: url('../attachment/profile/<?php echo $row['picture']?>');  margin-top: 10%; margin-bottom: 10%" >
+							<div class="popup-profile-picnohoverbig" style="background-image: url('../attachment/profile/<?php echo $row['picture']?>');  margin-top: 10%; margin-bottom: 10%" >
 								<?php 
 							}
 							?>
@@ -70,13 +65,13 @@ if(isset($_GET['matricNo'])){
 					</div>
 					<div class="grid-child green" style="margin-left: 2%; padding-top: 0%; padding-bottom: 0%;">
 						<!--Grid Column 2-->						
-						<div class="informationHolder" style="width:95%">
+						<div class="popup-informationHolder" style="width:95%">
 							<?php echo $row['name']; ?>
 						</div>
-						<div class="information" style="width: 95%">
-							<table align="center" style="border: 1px solid #ccc;" cellspacing="2">
+						<div class="popup-information" style="width: 95%">
+							<table style="border: 1px solid #ccc;" cellspacing="2">
 								<tr>
-									<td style="width: 27%">
+									<td style="width: 35%">
 										MATRIC NO.
 									</td>
 									<td>

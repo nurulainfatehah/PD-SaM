@@ -33,7 +33,7 @@ if(isset($_GET['lecturerID'])){
 	<body >
 		<hr>
 		<div align="center" style="width: 90%; margin-left: auto; margin-right: auto;">
-			<div class="grid-container">
+			<div class="popup-grid-container">
 				<div class="grid-child purple" style="padding-top: 10%; padding-bottom: 20%;">
 					<!--Grid Column 1-->
 
@@ -41,13 +41,13 @@ if(isset($_GET['lecturerID'])){
 					if(empty($row['picture']))
 					{
 						?>
-						<div class="profile-picnohoverbig" style="background-image: url('../attachment/imgsource/lecturer1.png'); margin-top: 10%; margin-bottom: 10%" >
+						<div class="popup-profile-picnohoverbig" style="background-image: url('../attachment/imgsource/lecturer1.png'); margin-top: 10%; margin-bottom: 10%" >
 							<?php 
 						}
 						else
 						{
 							?>
-							<div class="profile-picnohoverbig" style="background-image: url('../attachment/profile/<?php echo $row['picture']?>');  margin-top: 10%; margin-bottom: 10%" >
+							<div class="popup-profile-picnohoverbig" style="background-image: url('../attachment/profile/<?php echo $row['picture']?>');  margin-top: 10%; margin-bottom: 10%" >
 								<?php 
 							}
 							?>
@@ -55,11 +55,11 @@ if(isset($_GET['lecturerID'])){
 				</div>
 				<div class="grid-child green" style="margin-left: 2%; padding-top: 0%; padding-bottom: 0%;">
 					<!--Grid Column 2-->						
-					<div class="informationHolder" style="width:95%">
+					<div class="popup-informationHolder" style="width:95%">
 						<?php echo $row['name']; ?>
 					</div>
-					<div class="information" style="width: 95%">
-						<table align="center" style="border: 1px solid #ccc;" cellspacing="2">
+					<div class="popup-information" style="width: 95%">
+						<table style="border: 1px solid #ccc;" cellspacing="2">
 							<tr>
 								<td style="width: 27%">
 									STAFF ID
