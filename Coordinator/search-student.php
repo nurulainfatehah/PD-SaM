@@ -25,6 +25,35 @@ if(isset($_POST['querySearchStudent'])){
 $result = $conn->query($querySearch);
 if($result->num_rows > 0){
 	?>
+	<script type="text/javascript">
+		function viewStudent(obj, name){
+			var matricNo = obj.id;
+			var name = name;
+			$.confirm({
+				boxWidth: '60%',
+				useBootstrap: false,			
+				title: name,
+				cancelButton: false,
+				content: 'url:../ajaxprocess/viewStudent.php?matricNo=' + matricNo,
+				buttons: {
+					ok:{        
+						isHidden: true, // hide the button       
+					},
+					 close: function () {
+        			}
+				}
+				// onContentReady: function () {
+				// 	/*var self = this;
+				// 	this.setContentPrepend('<div>Prepended text</div>');
+				// 	setTimeout(function () {
+				// 		self.setContentAppend('<div>Appended text after 2 seconds</div>');
+				// 	}, 2000);*/
+				// },
+
+			});
+		}
+
+	</script>
 	<a id="print-btn" target="_blank" href="print/print-student-list.php"><button>Print</button></a><br><br>
 	<table align="center">
 		<tr>
@@ -51,11 +80,12 @@ if($result->num_rows > 0){
 						?>
 
 						<a title="remove <?php echo strtolower($row['name']) ?>" onclick="deleteStudent(this, '<?php echo $row["name"] ?>')" id="<?php echo $row['matricNo'] ?>" class="oppose"><i class="fa fa-trash" aria-hidden="true"></i></a>
-						<a href="#table_student" title="view <?php echo strtolower($row['name']) ?>" onclick="viewStudent(this)" id="<?php echo $row['matricNo'] ?>" ><i class="fa fa-search" aria-hidden="true"></i></a>
+						<a href="#table_student" title="view <?php echo strtolower($row['name']) ?>" onclick="viewStudent(this,'<?php echo $row["name"] ?>')" id="<?php echo $row['matricNo'] ?>" ><i class="fa fa-search" aria-hidden="true"></i></a>
 						<?php
 					}else{
 						?>
-						<a href="#table_student" title="view <?php echo strtolower($row['name']) ?>" onclick="viewStudent(this)" id="<?php echo $row['matricNo'] ?>" ><i class="fa fa-search" aria-hidden="true"></i></a>
+						<a title="cannot be removed as it associates with other important data" style="cursor: default; color: grey"><i class="fa fa-trash" aria-hidden="true"></i></a>
+						<a href="#table_student" title="view <?php echo strtolower($row['name']) ?>" onclick="viewStudent(this,'<?php echo $row["name"] ?>')" id="<?php echo $row['matricNo'] ?>" ><i class="fa fa-search" aria-hidden="true"></i></a>
 						<?php
 					}
 				?>

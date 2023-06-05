@@ -169,6 +169,25 @@ $resultSupervisorList = $conn->query($sqlSupervisorList);
 	</style>
 </head>
 <body>
+	<!-- <script type="text/javascript">
+		$(document).ready(function(){
+			$('#profile').click(function(){
+				$.confirm({
+				    title: 'Title',
+				    content: 'url:index.php',
+				    onContentReady: function () {
+				        var self = this;
+				        this.setContentPrepend('<div>Prepended text</div>');
+				        setTimeout(function () {
+				            self.setContentAppend('<div>Appended text after 2 seconds</div>');
+				        }, 2000);
+				    },
+				    columnClass: 'medium',
+				});
+			});
+		});
+	</script> -->
+	<!-- <button id="lalala">click me</button> -->
 	<div class="outerbox" id="top">
 		<div class="innerbox">
 			<header>
