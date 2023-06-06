@@ -921,7 +921,7 @@ if(isset($_POST['submitGuideline'])){
 							while($rowToEvaluateSV = $resultToEvaluateSV->fetch_assoc())
 							{							
 								?>	
-								<a style="text-decoration: none; color: black" target="_blank" href="penilaian.php?no_matrik=<?php echo $rowToEvaluateSV['no_matrik']?>">
+								<a style="text-decoration: none; color: black" target="_blank" href="assessment.php?no_matrik=<?php echo $rowToEvaluateSV['no_matrik']?>">
 									<div class="kotakKategori" style="align-items: center; width: 25%; margin-bottom: 30px; margin-top: 15px">
 										<div class="gambarholder" style="margin-top: 0px; height: 80px; width:80px">
 											<?php
@@ -969,7 +969,7 @@ if(isset($_POST['submitGuideline'])){
 							while($rowToEvaluateEV = $resultToEvaluateEV->fetch_assoc())
 							{							
 								?>	
-								<a style="text-decoration: none; color: black" target="_blank" href="penilaian.php?matricNo=<?php echo $rowToEvaluateEV['matricNo']?>">
+								<a style="text-decoration: none; color: black" target="_blank" href="assessment.php?matricNo=<?php echo $rowToEvaluateEV['matricNo']?>">
 									<div class="kotakKategori" style="align-items: center; width: 25%; margin-bottom: 30px; margin-top: 15px">
 										<div class="gambarholder" style="margin-top: 0px; height: 80px; width:80px">
 											<?php
