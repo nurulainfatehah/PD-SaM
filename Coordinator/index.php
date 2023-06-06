@@ -16,8 +16,7 @@ $resultTotalSupervision = $conn->query($sqlTotalSupervision);
 $sqlTotalEvaluator = "SELECT * FROM student WHERE evaluatorID = '".$lecturerID."'";
 $resultEvaluator = $conn->query($sqlTotalEvaluator);
 
-$sqlProposal = "SELECT student.matricNo, name, approvalStatus, attachment, projectTitle FROM student INNER JOIN assessment_milestone ON student.matricNo = assessment_milestone.matricNo WHERE (attachment IS NOT NULL OR attachment != '') AND approvalStatus IS NULL AND milestoneID = '1'"; //needs approval
-$resultProposal = $conn->query($sqlProposal);
+
 ?>
 
 
@@ -610,26 +609,15 @@ if(isset($_POST['submitGuideline'])){
 				<a id="tekanproposal" href="#proposal" style="text-decoration: none;text-decoration-style: none; text-decoration-color: none; color: inherit;">
 					<div class="kotakKategori" >
 						<div class="gambarholder" >
-							<img id="gambarKategori" src="../attachment/imgsource/referenceicon.png" width="70px" height="70px">
+							<img id="gambarKategori" src="../attachment/imgsource/reference.png" width="70px" height="70px">
 						</div>
 						<div class="ayatkategori">
 							<p class="titleKategori">
-								Proposal Approval
+								PD Evaluation
 							</p>
 							
 								<?php
-								if($resultProposal->num_rows == 0)
-								{
-									?>
-									<p class="detailKategori" style="color: gray">0
-									<?php 
-								}
-								else
-								{
-									?>
-									<p class="detailKategori" style="">
-									<?php echo $resultProposal->num_rows;
-								}
+								
 
 								?>
 							</p>
@@ -641,7 +629,7 @@ if(isset($_POST['submitGuideline'])){
 				<a id="tekanPenilaian" href="#penilaian" style="text-decoration: none;text-decoration-style: none; text-decoration-color: none; color: inherit;">
 					<div class="kotakKategori" >
 						<div class="gambarholder" >
-							<img id="gambarKategori" src="../attachment/imgsource/reference.png" width="70px" height="70px">
+							<img id="gambarKategori" src="../attachment/imgsource/query.png" width="70px" height="70px">
 						</div>
 						<div class="ayatkategori">
 							<p class="titleKategori">
@@ -671,7 +659,7 @@ if(isset($_POST['submitGuideline'])){
 				<a id="tekanBorang" href="#borangs" style="text-decoration: none;text-decoration-style: none; text-decoration-color: none; color: inherit;">
 					<div class="kotakKategori" >
 						<div class="gambarholder" >
-							<img id="gambarKategori" src="../attachment/imgsource/form.png" width="70px" height="70px">
+							<img id="gambarKategori" src="../attachment/imgsource/file-list.png" width="70px" height="70px">
 						</div>
 						<div class="ayatkategori">
 							<p class="titleKategori">
