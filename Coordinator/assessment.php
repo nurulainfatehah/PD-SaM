@@ -183,7 +183,8 @@ if(isset($_GET['matricNo'])){
 					url:"progress-form.php",
 					method:"POST",
 					data:{
-						opt: opt
+						opt: opt,
+						matricNo: '<?php echo $matricNo; ?>'
 					},
 					success:function(data)
 					{
