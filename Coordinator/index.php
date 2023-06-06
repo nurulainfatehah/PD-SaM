@@ -41,33 +41,6 @@ $totalToEvaluate = $resultToEvaluateSV->num_rows + $resultToEvaluateEV->num_rows
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 	<script type="text/javascript">
 
-		function approveProposal()
-		{
-			var keputusan = confirm("Confirm to approve this proposal? This cannot be undone.");
-
-			if(keputusan == true)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		function rejectProposal()
-		{
-			var keputusan = confirm("Confirm to reject this proposal? This cannot be undone.");
-
-			if(keputusan == true)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
 
 		function confirmGuideline()
 		{
@@ -921,7 +894,7 @@ if(isset($_POST['submitGuideline'])){
 							while($rowToEvaluateSV = $resultToEvaluateSV->fetch_assoc())
 							{							
 								?>	
-								<a style="text-decoration: none; color: black" target="_blank" href="assessment.php?no_matrik=<?php echo $rowToEvaluateSV['no_matrik']?>">
+								<a style="text-decoration: none; color: black" target="_blank" href="assessment.php?matricNo=<?php echo $rowToEvaluateSV['matricNo']?>">
 									<div class="kotakKategori" style="align-items: center; width: 25%; margin-bottom: 30px; margin-top: 15px">
 										<div class="gambarholder" style="margin-top: 0px; height: 80px; width:80px">
 											<?php
@@ -1105,7 +1078,7 @@ if(isset($_POST['submitGuideline'])){
 										<?php echo $rowBorangs['finalGrade'] ?>
 									</td>
 									<td align="center">
-										<a target="_blank" style="text-decoration: none;" href="borangPenilaian.php?no_matrik=<?php echo $rowBorangs['no_matrik'] ?>&id_penyelia=<?php echo $rowBorangs['id_penyelia']?>&id_penilai=<?php echo $rowBorangs['id_penilai'] ?>"><i id="sah" class="fa fa-search" aria-hidden="true"></i></a>
+										<a target="_blank" style="text-decoration: none;" href="borangPenilaian.php?matricNo=<?php echo $rowBorangs['matricNo'] ?>&id_penyelia=<?php echo $rowBorangs['id_penyelia']?>&id_penilai=<?php echo $rowBorangs['id_penilai'] ?>"><i id="sah" class="fa fa-search" aria-hidden="true"></i></a>
 
 										
 										<a href="printPenilaian.php?no_matrik=<?php echo $rowBorangs['no_matrik'] ?>&id_penyelia=<?php echo $rowBorangs['id_penyelia']?>&id_penilai=<?php echo $rowBorangs['id_penilai']?>" target="_blank"><i id="sah" class="fa fa-download" aria-hidden="true"></i></a>

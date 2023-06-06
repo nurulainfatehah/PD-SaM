@@ -1,0 +1,147 @@
+.penilaianbody
+{
+	width: 65%; 
+	min-height: 100px;
+	padding-left: 20px; 
+	padding-right: 20px;
+	padding-bottom: 20px;
+	border: 1px solid black;
+}
+
+select
+{
+	margin-top: 20px;
+}
+
+.holder
+{
+	background-color: black;
+	color: white;
+	height: 45px;
+	width: 160px;
+	text-align: center;
+	font-family: serif;
+	font-weight: bold;
+	padding-top: 10px;
+
+}
+
+body
+{
+	width: calc(100vw - 34px);
+	font-size: 14px;
+	font-family: Roboto-Regular,'Helvetica Neue',Helvetica,Tahoma,Arial,'Sans-serif';
+}
+
+.inputtr
+{
+	border: 1px solid black;
+	width: 20%;
+	padding-left: 3px;
+}
+
+.tdtitle
+{
+	width: 9%;
+}
+
+tr:nth-child(even)
+{
+	background-color: rgba(234, 231, 220, 0.4);
+}
+
+tr:nth-child(odd)
+{
+	background-color:rgba(234, 231, 220, 1);
+}
+
+
+.kotakBorang
+{
+	width: 90%;
+	margin-top: 20px;
+	padding-bottom: 15px;
+	background-color: ;
+	margin-left: 5%;
+}
+
+#tableborang
+{
+	float: right;
+	margin-left: 0px;
+	margin-top: 45px;
+	width: 17.8%;
+	padding: 0px;
+}
+
+#tableborang td
+{
+	text-align: center;
+	align-content: center;
+	align-items: center;
+	vertical-align: middle;
+	align-self: center;
+	padding-bottom: 50px;
+	padding-top: 50px;
+	border: 1px solid black;
+}
+
+
+input[type=number]
+{
+	width: 25%;
+	text-align: center;
+}
+
+
+.submit
+{
+	margin-top: 15px;
+	text-align: center;
+	margin-left: 30%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+tr:hover
+{
+	background-color: rgba(117, 20, 117, 0.2);
+}
+
+.tdmarkah
+{
+	width: 25%;
+
+}
+
+.tdmarkah1
+{
+	width: 35%;
+	font-style: normal;
+
+}
+
+.ulasan
+{
+	padding: 10px 0 10px 30px;
+	width: 45%;
+
+}
+
+textarea
+{
+	resize: vertical;
+	padding: 15px 5px 15px 5px;
+	font-family: sans-serif;
+	cursor: default;
+}
