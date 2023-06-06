@@ -18,6 +18,18 @@ if(isset($_GET['matricNo'])){
 	$resultEvaluator = $conn->query($sqlEvaluator);
 	$rowEvaluator = $resultEvaluator->fetch_assoc();
 
+	$type = "";
+	if($lecturerID == $row['supervisorID'])
+	{
+		$type = "supervisor";
+	}
+	else if($lecturerID == $row['evaluatorID'])
+	{
+		$type = "evaluator";
+	}
+
+	$sqlFormList = "SELECT * FROM progress_form";
+	$resultFormList = $conn->query($sqlFormList);
 
 	?>
 
@@ -68,7 +80,7 @@ if(isset($_GET['matricNo'])){
 		Borang Penilaian <br>Projek Diploma
 	</div>
 	<div style=" " class="penilaianbody">
-		<table width="50%" style=" margin-top: 10px">
+		<table cellpadding="3" width="50%" style=" margin-top: 10px">
 			<tr>
 				<td class="tdtitle">
 					SUPERVISOR
@@ -130,9 +142,73 @@ if(isset($_GET['matricNo'])){
 					<?php echo $row['phone']?>
 				</td>
 			</tr>
-
 		</table>
+
+		<select id="select-form" style="width">
+			<option title="-- Choose Assessment Form --" selected value="">-- Choose Assessment Form --</option>
+			<option title="OBE Summary" value="obeSummary">OBE Summary</option>
+			<?php
+			$nForm = 0;
+			while($rowForm = $resultFormList->fetch_assoc()){
+				$nForm++;
+				if($nForm == 4){
+					?>
+					<option title="Status (week 10)" value="status">Status (week 10)</option>
+					<?php
+				}
+				if($rowForm['formRole'] == strtoupper($type)){
+					?>
+					<option title="<?php echo ucwords(strtolower($rowForm['formName'])); ?>" value="<?php $rowForm['progressFormID'] ?>"><?php echo ucwords(strtolower($rowForm['formName'])); ?></option>
+					<?php
+				}else{
+					?>
+					<option disabled title="<?php echo ucwords(strtolower($rowForm['formName'])); ?>"><?php echo ucwords(strtolower($rowForm['formName'])); ?></option>
+					<?php
+				}
+			}
+			?>
+		</select>
+
+		<div id="show_form">
+		</div>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			load_form();
+
+			/*js load selected form */
+			//=================================================================
+			function load_form(opt){
+				$.ajax({
+					url:"progress-form.php",
+					method:"POST",
+					data:{
+						opt: opt
+					},
+					success:function(data)
+					{
+						$('#show_form').html(data);
+					}
+				});
+			}
+
+			$('#select-form').change(function (){
+				var opt = $('#select-form').val();
+				if(opt != '')
+				{
+					load_student(opt);
+				}
+				else
+				{
+					load_student();
+				}
+
+			});
+		});
+	</script>
+	<?php
+	include('../footer.php');
+	?>
 	</body>
 	</html>
 	<?php
