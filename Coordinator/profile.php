@@ -699,12 +699,12 @@ else
 							<a title="home" href="../Coordinator"><i style="font-size: 16px;" class="fa fa-home" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a href="supervision.php" title="supervision" title="">
+							<a href="documentation.php" title="documentation" >
 								<i style="font-size: 16px" class="fa fa-folder-open" aria-hidden="true"></i>
 							</a>
 						</li>
 						<li>
-							<a href="forum-milestones.php" title="forum and milestones" title="">
+							<a href="milestones.php" title="milestones" >
 								<i style="font-size: 16px" class="fa fa-calendar-check-o" aria-hidden="true"></i>
 							</a>
 						</li>
@@ -858,9 +858,9 @@ else
 					<?php
 				}
 				else{
-					$count = 0;
+					
 						while($rowAnakSeliaan = $resultAnakSeliaan->fetch_assoc()){
-							$count += 1;
+							
 							?>
 							<div class="list-box">
 								<?php

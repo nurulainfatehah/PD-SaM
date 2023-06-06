@@ -140,6 +140,7 @@ if(isset($_GET['lecturerID'])){
 			<?php
 			if($resultEVList->num_rows > 0){
 				?>
+				<br><br>
 				<hr>
 				<center style="font-size: 14px; font-weight: bold;">EVALUATION LIST (<?php echo $resultEVList->num_rows ?>)</center>
 				<hr>

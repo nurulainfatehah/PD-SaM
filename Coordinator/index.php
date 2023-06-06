@@ -17,6 +17,13 @@ $sqlTotalEvaluator = "SELECT * FROM student WHERE evaluatorID = '".$lecturerID."
 $resultEvaluator = $conn->query($sqlTotalEvaluator);
 
 
+$sqlToEvaluateSV = "SELECT * FROM student WHERE supervisorID = '".$lecturerID."'";
+$resultToEvaluateSV = $conn->query($sqlToEvaluateSV);
+
+$sqlToEvaluateEV = "SELECT * FROM student WHERE evaluatorID = '".$lecturerID."'";
+$resultToEvaluateEV = $conn->query($sqlToEvaluateEV);
+
+$totalToEvaluate = $resultToEvaluateSV->num_rows + $resultToEvaluateEV->num_rows;
 ?>
 
 
@@ -27,6 +34,7 @@ $resultEvaluator = $conn->query($sqlTotalEvaluator);
 	<title>PD-SaM - <?php echo ucfirst($_SESSION['username']) ?></title>
 	<link rel="stylesheet" type="text/css" href="../css/header.css">
 	<link rel="stylesheet" type="text/css" href="../css/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="../css/view-profile-popup.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
@@ -177,43 +185,17 @@ $resultEvaluator = $conn->query($sqlTotalEvaluator);
 				
 			});
 
-			$('#tekanproposal').click(function(){
-				if($('#proposal').is(":visible")){
-					$('#proposal').hide();
+			$('#click-evaluation').click(function(){
+				if($('#evaluation').is(":visible")){
+					$('#evaluation').hide();
 				}else
-					$('#proposal').show();
+					$('#evaluation').show();
 			});
 
-			$('#hideproposal').click(function(){
-				$('#proposal').hide();
+			$('#hideevaluation').click(function(){
+				$('#evaluation').hide();
 			});
 			
-
-			$('#paparProposalTerima').click(function(){
-				$('#proposalDiterima').show();
-			});
-
-			$('#paparProposalTolak').click(function(){
-				$('#proposalDitolak').show();
-			});
-
-			$('#paparProposalNA').click(function(){
-				$('#proposalNA').show();
-			});
-
-			$('#hideProposalTerima').click(function(){
-				$('#proposalDiterima').hide();
-			});
-
-			$('#hideProposalTolak').click(function(){
-				$('#proposalDitolak').hide();
-			});
-
-			$('#hideProposalNA').click(function(){
-				$('#proposalNA').hide();
-			});
-
-
 
 
 			$('#tekanBorang').click(function(){
@@ -250,6 +232,43 @@ $resultEvaluator = $conn->query($sqlTotalEvaluator);
 			font-size: 9px;
 			color: red;
 			display: inline-block;
+		}
+
+		.info-supervision-list
+		{
+			display: inline-flex;
+		    width: 88%;
+		    margin-left: 5%;
+		    margin-right: auto;
+		    height: auto;
+		    margin-top: 0;
+		    padding: 5px 10px 5px 10px;
+		    flex-wrap: wrap;
+		    align-content: center;
+		    justify-content: center;
+		}
+
+		.list-box{
+			
+		    width: 35%;
+		    height: 90px;
+		    border: 1px solid grey;
+		    border-radius: 25px;
+		    height: auto;
+		    margin-right: 30px;
+		    margin-top: 20px;
+		    padding: 7px 7px 10px 7px;
+		}
+
+		.list-profile-pic{
+			border-radius: 50%;
+			height: 60px;
+			width: 60px;
+			background-size: cover;
+			background-position: center;
+			color: transparent;
+			margin-left: auto;
+			margin-right: auto;
 		}
 	</style>
 	<script type="text/javascript">
@@ -482,12 +501,12 @@ if(isset($_POST['submitGuideline'])){
 							<a title="home" href="../Coordinator" class="activebar"><i style="font-size: 16px;" class="fa fa-home" aria-hidden="true"></i></a>
 						</li>
 						<li>
-							<a href="supervision.php" title="supervision" title="">
+							<a href="documentation.php" title="documentation" >
 								<i style="font-size: 16px" class="fa fa-folder-open" aria-hidden="true"></i>
 							</a>
 						</li>
 						<li>
-							<a href="forum-milestones.php" title="forum and milestones" title="">
+							<a href="milestones.php" title="milestones" >
 								<i style="font-size: 16px" class="fa fa-calendar-check-o" aria-hidden="true"></i>
 							</a>
 						</li>
@@ -606,18 +625,29 @@ if(isset($_POST['submitGuideline'])){
 				</a>
 				<br>
 
-				<a id="tekanproposal" href="#proposal" style="text-decoration: none;text-decoration-style: none; text-decoration-color: none; color: inherit;">
+				<a id="click-evaluation" href="#evaluation" style="text-decoration: none;text-decoration-style: none; text-decoration-color: none; color: inherit;">
 					<div class="kotakKategori" >
 						<div class="gambarholder" >
 							<img id="gambarKategori" src="../attachment/imgsource/reference.png" width="70px" height="70px">
 						</div>
 						<div class="ayatkategori">
 							<p class="titleKategori">
-								PD Evaluation
+								PD Assessment
 							</p>
 							
 								<?php
-								
+								if($totalToEvaluate== 0)
+								{
+									?>
+									<p class="detailKategori" style=" color: gray; margin-top: 0">0
+									<?php
+								}
+								else
+								{
+									?>
+									<p class="detailKategori" >
+									<?php echo $totalToEvaluate;
+								}
 
 								?>
 							</p>
@@ -702,7 +732,7 @@ if(isset($_POST['submitGuideline'])){
 				} ?>
 			
 				<div class="titleTextHolder">
-					Guideline
+					GUIDELINE
 				</div>
 				<hr>
 				<p id="hiderujukan" class="hide">hide</p>
@@ -775,7 +805,7 @@ if(isset($_POST['submitGuideline'])){
 
 			<div id="seliaan" class="sectionkategori" style="display: none">
 				<div class="titleTextHolder">
-					Supervised Student
+					SUPERVISED STUDENT
 				</div>
 				<hr>
 				<p id="hideseliaan" class="hide">hide</p>
@@ -793,470 +823,197 @@ if(isset($_POST['submitGuideline'])){
 						<a target="_blank" href="printPelajarSeliaan.php?lecturerID=<?php echo $lecturerID ?>"style="text-decoration-style: none; color: inherit; text-decoration: none;">
 							<button>Print</button>
 						</a>
-						<?php
-						$count = 0;
-							while($rowAnakSeliaan = $resultTotalSupervision->fetch_assoc()){
-								$count += 1;
-					?>
-						<div align="center" >
+						<div class="info-supervision-list">
 							<?php
-							if(empty($rowAnakSeliaan['picture']))
-							{ ?>
-								<div class="profile-pic" style="background-image: url('../attachment/imgsource/studenticon.png');" >
-								</div>
-								<?php 
-							
-							}
-							else
-							{
-								?>
-								<div class="profile-pic" style="background-image: url('../attachment/profile/<?php echo $rowAnakSeliaan['picture'] ?>');" >
-								</div>
-								<?php
-							}
-
+							while($rowAnakSeliaan = $resultTotalSupervision->fetch_assoc()){
+								
 							?>
-						<table cellpadding="4" align="center" width="90%;" style="margin-top: 10px;">
-							<tr>
-								<td style="width: 35%">
-									Supervised Student <?php echo $count ?>
-								</td>
-								<td>
-									<?php
-										
-										echo $rowAnakSeliaan['name'] ;
+							<div class="list-box">
+								<?php
 									
+								if(empty($rowAnakSeliaan['picture']))
+								{ ?>
+									<div align="center" class="list-profile-pic" style="background-image: url('../attachment/imgsource/studenticon.png'); margin-left: 40%" >
+									</div>									
+									<?php								
+								}
+								else
+								{
 									?>
-								</td>
-							</tr>
-							<tr>
-								<td style="width: 35%">
-									Matric No.
-								</td>
-								<td>
+									<div align="center" class="list-profile-pic" style="background-image: url('../attachment/profile/<?php echo $rowAnakSeliaan['picture'] ?>'); margin-left: 40%" >
+									</div>									
 									<?php
-										
-										echo  $rowAnakSeliaan['matricNo'] ;
-					
-									?>
-								</td>
-							</tr>
-							<tr>
-								<td style="width: 35%">
-									Section/Group
-								</td>
-								<td>
-									<?php
-										
-										echo $rowAnakSeliaan['sectionGroup'] ;
-					
-									?>
-								</td>
-							</tr>
-							<tr>
-								<td style="width: 35%">
-									Phone
-								</td>
-								<td>
-									<?php
-										
-										echo $rowAnakSeliaan['phone'] ;
-					
-									?>
-								</td>
-							</tr>
-							<tr>
-								<td style="width: 35%">
-									Project Title
-								</td>
-								<td>
-									<?php
-										if(empty($rowAnakSeliaan['projectTitle']))
-											echo "<i style='color: gray'>Title has not been updated yet.</i>";
-										else
-											echo $rowAnakSeliaan['projectTitle'] ;
-					
-									?>
-								</td>
-							</tr>
+								}
+								?>
+								<table >
+									<tr>
+										<td style="text-align: center;" colspan="2">
+											<?php
 
-						</table>
+											echo $rowAnakSeliaan['name'];
+
+											?>
+										</td>
+									</tr>
+									<tr>
+										<td width="40%">
+											MATRIC NO
+										</td>
+										<td>
+											<a title="view <?php echo strtolower($rowAnakSeliaan['name']) ?>" onclick="viewStudent(this,'<?php echo $rowAnakSeliaan["name"] ?>')" id="<?php echo $rowAnakSeliaan['matricNo'] ?>"><?php echo $rowAnakSeliaan['matricNo'] ?></a>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											PROJECT TITLE
+										</td>
+										<td>
+											<?php
+											if(empty($rowAnakSeliaan['projectTitle'])){
+												echo '<i>-</i>';
+											}else
+												echo '<i>' . $rowAnakSeliaan['projectTitle'] . '</i>';
+
+											?>
+										</td>
+									</tr>
+								</table>
+							</div>
 						<br><br>
 				<?php } } ?>
-
+						</div>	
 				</div>
 			</div>
-		<?php
-			if($resultTotalSupervision->num_rows == 0)
-			{
-				?>
-				<?php
-			}
-			else if($resultTotalSupervision->num_rows == 1)
-			{
-				?>
-				</div>
-			
-				<?php
-			}
-			else
-			{
-				?>
-				</div>
-			</div>
-				<?php
-			}
-
-			?>
 		
-
-
 			<?php
-			if(isset($_SESSION['openDiv']) && $_SESSION['openDiv'] == "pengesahanProposal")
+			if(isset($_SESSION['openDiv']) && $_SESSION['openDiv'] == "evaluation")
 			{
 				?>
-				<div id="proposal" class="sectionkategori" style="">
+				<div id="evaluation" class="sectionkategori" style="">
 				<?php unset($_SESSION['openDiv']);
 			}
 			else
 			{
 				?>
-				<div id="proposal" class="sectionkategori" style="display: none">
+				<div id="evaluation" class="sectionkategori" style="display: none">
 				<?php
 			}
 			?>
 				<div class="titleTextHolder">
-					Proposal Approval
+					PD ASSESSMENT
 				</div>
 				<hr>
 				<?php
-				$sqlTotalProposalDiterima = "SELECT COUNT(*) as totalTerima FROM student INNER JOIN assessment_milestone ON student.matricNo = assessment_milestone.matricNo WHERE approvalStatus = 'approved' AND milestoneID = '1'";
-				$sqlTotalProposalDitolak = "SELECT COUNT(*) as totalTolak FROM student INNER JOIN assessment_milestone ON student.matricNo = assessment_milestone.matricNo WHERE approvalStatus = 'rejected' AND milestoneID = '1'";
-				$sqlTotalProposalNA = "SELECT COUNT(*) as totalNA FROM student WHERE matricNo NOT IN (SELECT matricNo FROM assessment_milestone WHERE milestoneID = '1')";
-
-				$resultTotalProposalDiterima = $conn->query($sqlTotalProposalDiterima);
-				$resultTotalProposalDitolak = $conn->query($sqlTotalProposalDitolak);
-				$resultTotalProposalNA = $conn->query($sqlTotalProposalNA);
-
-				$rowTotalTerima = $resultTotalProposalDiterima->fetch_assoc();
-				$rowTotalTolak = $resultTotalProposalDitolak->fetch_assoc();
-				$rowTotalNA = $resultTotalProposalNA->fetch_assoc();
-
-				?>
-				
-				
-				
-				<p id="hideproposal" class="hide">hide</p>
-				<div class="kontenkategori" style="padding-left: 0">
+				?>		
+				<p id="hide-evaluation" class="hide">hide</p>
+				<div class="kontenkategori" align="center" style="padding-left: 0"><br><br>
 					<?php
-					if($resultProposal->num_rows == 0)
+					if($totalToEvaluate == 0)
 					{
 						?>
-						<center><i class="remarksnote">0 record of proposal that needs your approval was found</i></center>
+						<center><i class="remarksnote">0 record of student that needs to be evaluated</i></center>
 						<?php
 					}
 					else
 					{
-						?>
-						<table cellpadding="4"  align="center" width="100%;" style="margin-top: 20px;">
-							<tr>
-								<th>
-									Matric No.
-								</th>
-								<th style="width: 35%">
-									Name
-								</th>
-								<th style="width: 35%">
-									Project Title
-								</th>
-								<th style="width: 10%">
-									Proposal
-								</th>
-								<th>
-									Action
-								</th>
-							</tr>
-							<?php
+						if($resultToEvaluateSV->num_rows > 0){ ?>
+							<b><p align="center">SUPERVISED STUDENT</p></b> <?php
+							while($rowToEvaluateSV = $resultToEvaluateSV->fetch_assoc())
+							{							
+								?>	
+								<a style="text-decoration: none; color: black" target="_blank" href="penilaian.php?no_matrik=<?php echo $rowToEvaluateSV['no_matrik']?>">
+									<div class="kotakKategori" style="align-items: center; width: 25%; margin-bottom: 30px; margin-top: 15px">
+										<div class="gambarholder" style="margin-top: 0px; height: 80px; width:80px">
+											<?php
+											if(empty($rowToEvaluateSV['picture']))
+											{
+												?>
+												<div class="profile-picnohover" style=" margin-left: 0%;height: 80px; width: 80px; background-image: url('../attachment/imgsource/studenticon.png');" >
+												</div>
+												<?php
+											}
+											else
+											{
+												?>
+												<div class="profile-picnohover" style="margin-left: 0%;height: 80px; width: 80px;background-image: url('../attachment/profile/<?php echo $rowToEvaluateSV['picture']?>');" >
+												</div>
+												
+												<?php
+											}
+											?>
+											
+										</div>
+										<div class="ayatkategori" style="width: 70%;">
+											<p class="titleKategori" style="width:100%">
+												<b>Evaluation</b><br><br>
+												<?php echo $rowToEvaluateSV['matricNo'];
+												if(empty($rowToEvaluateSV['finalGrade']))
+												{
+													echo '<br><i style="color: grey">incomplete</i>';
+												}else{
+													echo '<br><i style="color: green">evaluated</i>';
+												}
+												?>
+											</p>										
+										</div>
+									</div>
+								</a>
+								
 
-							while($rowProposal = $resultProposal->fetch_assoc())
-							{
-								?>
-								<tr class="trhover">
-									<td>
-										<?php echo $rowProposal['matricNo']; ?>
-									</td>
-									<td style="padding-left: 5px">
-										<?php echo $rowProposal['name']; ?>
-									</td>
-									<td style="padding-left: 5px; padding-right: 5px">
-										<?php echo $rowProposal['projectTitle']; ?>
-									</td>
-									<td align="center">
-										<a download="<?php echo $rowProposal['proposal'] ?>" href="../attachment/proposal/<?php echo $rowProposal['proposal'] ?>">
-											<i title="<?php echo $rowProposal['proposal']?>" class="fa fa-file-pdf-o" aria-hidden="true"></i>
-										</a>
-									</td>
-									<td align="center">
-										<a onclick="return approveProposal()" href="terimaProposal.php?no_matrik=<?php echo $rowProposal['no_matrik']; ?>" id="sah"><i class="fa fa-check-circle-o" aria-hidden="true"></i></a>
-										<a onclick="return rejectProposal()" href="tolakProposal.php?no_matrik=<?php echo $rowProposal['no_matrik']; ?>" id="tolak"><i class="fa fa-times-circle-o" aria-hidden="true" ></i></a>
-									</td>
-								</tr>
 								<?php
 							}
-							?>
+						}
 
+						if($resultToEvaluateEV->num_rows > 0){ ?>
+							<b><p align="center">EVALUATED STUDENT</p></b> <?php
+							while($rowToEvaluateEV = $resultToEvaluateEV->fetch_assoc())
+							{							
+								?>	
+								<a style="text-decoration: none; color: black" target="_blank" href="penilaian.php?matricNo=<?php echo $rowToEvaluateEV['matricNo']?>">
+									<div class="kotakKategori" style="align-items: center; width: 25%; margin-bottom: 30px; margin-top: 15px">
+										<div class="gambarholder" style="margin-top: 0px; height: 80px; width:80px">
+											<?php
+											if(empty($rowToEvaluateEV['picture']))
+											{
+												?>
+												<div class="profile-picnohover" style=" margin-left: 0%;height: 80px; width: 80px; background-image: url('../attachment/imgsource/studenticon.png');" >
+												</div>
+												<?php
+											}
+											else
+											{
+												?>
+												<div class="profile-picnohover" style="margin-left: 0%;height: 80px; width: 80px;background-image: url('../attachment/profile/<?php echo $rowToEvaluateEV['picture']?>');" >
+												</div>
+												
+												<?php
+											}
+											?>
+											
+										</div>
+										<div class="ayatkategori" style="width: 70%;">
+											<p class="titleKategori" style="width:100%">
+												<b>Evaluation</b><br><br>
+												<?php echo $rowToEvaluateEV['matricNo'];
+												if(empty($rowToEvaluateEV['finalGrade']))
+												{
+													echo '<br><i style="color: grey">incomplete</i>';
+												}else{
+													echo '<br><i style="color: green">evaluated</i>';
+												}
+												?>
+											</p>										
+										</div>
+									</div>
+								</a>
+								
 
-						</table>
-						<?php
+								<?php
+							}
+						}
+												
 					}
 					?>
-					
-
-				</div>
-				<div class="kontenkategori" style="margin-top: 20px; padding-left: 0px;">
-					<a id="paparProposalTerima" href="#proposalDiterima">Status: Sah[<?php echo $rowTotalTerima['totalTerima'] ?>]</a>
-					<a id="paparProposalTolak" style="margin-left: 20%;" href="#proposalDitolak">Status: Tolak[<?php  echo $rowTotalTolak['totalTolak'] ?>]</a>
-					<a id="paparProposalNA" style="margin-left: 20%;" href="#proposalNA">Status: Belum Dikemaskini[<?php  echo $rowTotalNA['totalNA'] ?>]</a>
-
-
-					<div id="proposalDiterima" style="display: none; margin-top: 30px">
-						<hr>
-						<p class="hide" id="hideProposalTerima">hide</p>
-						
-						
-						
-						<?php
-							$sqlTerima = "SELECT student.matricNo, name, projectTitle, attachment FROM student INNER JOIN assessment_milestone ON student.matricNo = assessment_milestone.matricNo WHERE approvalStatus = 'approved' AND milestoneID = '1' ORDER BY student.matricNo";
-							$resultTerima = $conn->query($sqlTerima);
-
-							if($resultTerima->num_rows == 0)
-							{
-								?>
-								<h4 align="center" style="color: gray; font-style: italic;">No proposal record was approved.</h4>
-								<?php 
-							}
-							else
-							{
-								?>
-								<a target="_blank" href="printProposalSah.php"style="text-decoration-style: none; color: inherit; text-decoration: none;">
-									<button>Cetak</button>
-								</a>
-								<table cellpadding="4" align="center" width="100%;" style="margin-top: 10px">
-								<tr>
-									<th colspan="4">Status: <i style="color: green">Sah</i></th>
-								</tr>
-								<tr>
-									<th style="width: 15%">
-										No. Matrik
-									</th>
-									<th>
-										Nama
-									</th>
-									<th style="width: 40%">
-										Tajuk Projek
-									</th>
-									<th style="width: 10%">
-										Proposal
-									</th>
-								</tr>
-								
-								<?php
-								while($rowTerima = $resultTerima->fetch_assoc())
-								{
-									?>
-									<tr class="trhover">
-										<td style="text-align: center;">
-											<?php
-											echo $rowTerima['no_matrik'];
-											?>
-										</td>
-										<td style="padding-left: 5px; padding-right: 5px">
-											<?php
-											echo $rowTerima['nama'];
-											?>
-										</td>
-										<td style="padding-left: 5px; padding-right: 5px">
-											<?php
-											echo $rowTerima['tajuk_projek'];
-											?>
-										</td>
-										<td align="center">
-											<a download="<?php echo $rowTerima['proposal'] ?>" href="../attachment/proposal/<?php echo $rowTerima['proposal'] ?>">
-												<i title="<?php echo $rowTerima['proposal']?>" class="fa fa-file-pdf-o" aria-hidden="true"></i>
-											</a>
-										</td>
-									</tr>
-									<?php
-								}
-							}
-
-						?>
-						</table>
-						
-					</div>
-
-					<div id="proposalDitolak" style="display: none; margin-top: 30px ">
-						<hr>
-						<p class="hide" id="hideProposalTolak">hide</p>
-						
-							<?php
-							$sqlTolak = "SELECT student.matricNo, name, projectTitle, attachment FROM student INNER JOIN assessment_milestone ON student.matricNo = assessment_milestone.matricNo WHERE approvalStatus = 'rejected' AND milestoneID = '1' ORDER BY student.matricNo";
-							$resultTolak = $conn->query($sqlTolak);
-
-							if($resultTolak->num_rows == 0)
-							{
-								?>
-								<h4 align="center" style="color: gray; font-style: italic;">No proposal record was rejected.</h4>
-								<?php 
-							}
-							else
-							{
-								?>
-								<a target="_blank" href="printProposalTolak.php"style="text-decoration-style: none; color: inherit; text-decoration: none;">
-									<button>Print</button>
-								</a><br>
-								<table  cellpadding="4" align="center" width="100%" style="margin-top: 10px">
-								<tr>
-									<th colspan="4">Status: <i style="color: red">Rejected</i></th>
-								</tr>
-								<tr>
-									<th style="width: 15%">
-										Matric No.
-									</th>
-									<th>
-										Name
-									</th>
-									<th style="width: 40%">
-										Project Title
-									</th>
-									<th style="width: 10%">
-										Proposal
-									</th>
-								</tr>
-								
-								<?php
-								while($rowTolak = $resultTolak->fetch_assoc())
-								{
-									?>
-									<tr class="trhover">
-										<td style="text-align: center;">
-											<?php
-											echo $rowTolak['matricNo'];
-											?>
-										</td>
-										<td style="padding-left: 5px; padding-right: 5px">
-											<?php
-											echo $rowTolak['name'];
-											?>
-										</td>
-										<td style="padding-left: 5px; padding-right: 5px">
-											<?php
-											echo $rowTolak['projectTitle'];
-											?>
-										</td>
-										<td align="center">
-											<a download="<?php echo $rowTolak['proposal'] ?>" href="../attachment/proposal/<?php echo $rowTolak['proposal'] ?>">
-												<i title="<?php echo $rowTolak['proposal']?>" class="fa fa-file-pdf-o" aria-hidden="true"></i>
-											</a>
-										</td>
-									</tr>
-									<?php
-								}
-							}
-
-							?>
-						</table>
-					</div>
-
-					<div id="proposalNA" style="display: none; margin-top: 30px">
-						<hr>
-						<p class="hide" id="hideProposalNA">hide</p>
-						
-						
-						
-						<?php
-							$sqlNA = "SELECT matricNo, name, email, sectionGroup, phone FROM student WHERE matricNo NOT IN (SELECT matricNo FROM assessment_milestone WHERE milestoneID = '1') ORDER BY student.matricNo";
-							
-							$resultNA = $conn->query($sqlNA);
-
-							if($resultNA->num_rows == 0)
-							{
-								?>
-								<h4 align="center" style="color: gray; font-style: italic;">All proposal have been submitted.</h4>
-								<?php 
-							}
-							else
-							{
-								?>
-								<a target="_blank" href="printProposalNA.php"style="text-decoration-style: none; color: inherit; text-decoration: none;">
-									<button>Print</button>
-								</a>
-								<table cellpadding="4" align="center" width="100%;" style="margin-top: 10px">
-								<tr>
-									<th colspan="5">Status: <i style="color: gray">Have not submitted proposal yet</i></th>
-								</tr>
-								<tr>
-									<th style="width: 15%">
-										Matric No.
-									</th>
-									<th>
-										Name
-									</th>
-									<th>
-										E-mail
-									</th>
-									<th width="9%">
-										S_/G_
-									</th>
-									<th width="12%">
-										Phone
-									</th>
-								</tr>
-								
-								<?php
-								while($rowNA = $resultNA->fetch_assoc())
-								{
-									?>
-									<tr class="trhover">
-										<td style="text-align: center;">
-											<?php
-											echo $rowNA['matricNo'];
-											?>
-										</td>
-										<td style="padding-left: 5px; padding-right: 5px">
-											<?php
-											echo $rowNA['name'];
-											?>
-										</td>
-										<td style="padding-left: 5px; padding-right: 5px">
-											<?php
-											echo $rowNA['email'];
-											?>
-										</td>
-
-										<td align="center">
-											<?php
-											echo $rowNA['sectionGroup'];
-											?>
-										</td>
-										<td align="center">
-											<?php
-											echo $rowNA['phone'];
-											?>
-										</td>
-										
-									</tr>
-									<?php
-								}
-							}
-
-						?>
-						</table>
-						
-					</div>
-
-
-
 				</div>
 			</div>
 
@@ -1282,124 +1039,8 @@ if(isset($_POST['submitGuideline'])){
 				<p id="hidePenilaian" class="hide">hide</p>
 				<div class="kontenkategori" style="padding-left: 0" align="center">
 					
-					<?php
-					$sqlTotalSupervision = "SELECT * FROM student WHERE supervisorID = '".$lecturerID."'";
-					$resultSelia = $conn->query($sqlTotalSupervision);
-					if($resultSelia->num_rows == 0 && $resultEvaluator->num_rows == 0)
-					{
-						echo '<div align="center"><i class="remarksnote">No Borang Penilaian PD that needs to be filled</i></div>';
-					}
-					else if($resultSelia->num_rows == 0)
-					{
-
-					}
-					else
-					{
-						?>
-						<p align="center" style="text-decoration-line: underline;">Pelajar Seliaan</p>
-						<?php
-						
-						while($rowSelia = $resultSelia->fetch_assoc())
-						{ 
-							
-							?>
-							<a style="text-decoration: none; color: black" target="_blank" href="penilaian.php?no_matrik=<?php echo $rowSelia['no_matrik']?>">
-								<div class="kotakKategori" style="width: 35%; margin-bottom: 30px; margin-top: 0px">
-									<div class="gambarholder">
-										<?php
-										if(empty($rowSelia['gambar']))
-										{
-											?>
-											<div class="profile-picnohover" style=" margin-left: 0%;height: 90px; width: 90px; background-image: url('../attachment/imgsource/studenticon.png');" >
-											</div>
-											<?php
-										}
-										else
-										{
-											?>
-											<div class="profile-picnohover" style="margin-left: 0%;height: 90px; width: 90px;background-image: url('../attachment/profile/<?php echo $rowSelia['picture']?>');" >
-											</div>
-											
-											<?php
-										}
-										?>
-										
-									</div>
-									<div class="ayatkategori">
-										<p class="titleKategori">
-											<b>Evaluate</b><br><br>
-											<?php echo $rowSelia['name']?>
-										</p>
-										
-									</div>
-								</div>
-							</a>
-							
-
-							<?php
-						}
-						
-					}
-
-					/*BUKAN SELIAAN*/
-					
-					if($resultEvaluator->num_rows == 0)
-					{
-						
-					}
-					else
-					{
-						?>
-						
-						<p align="center" style="text-decoration-line: underline;">Not Supervised Student</p>
-						<?php
-						
-						while($rowPenilaiaan = $resultEvaluator->fetch_assoc())
-						{ 
-							
-							?>
-							<a style="text-decoration: none; color: black" target="_blank" href="penilaian.php?no_matrik=<?php echo $rowPenilaiaan['matricNo']?>">
-								<div class="kotakKategori" style="width: 35%; margin-bottom: 30px; margin-top: 0px">
-									<div class="gambarholder">
-										<?php
-										if(empty($rowPenilaiaan['picture']))
-										{
-											?>
-											<div class="profile-picnohover" style=" margin-left: 0%;height: 90px; width: 90px; background-image: url('../attachment/imgsource/studenticon.png');" >
-											</div>
-											<?php
-										}
-										else
-										{
-											?>
-											<div class="profile-picnohover" style="margin-left: 0%;height: 90px; width: 90px;background-image: url('../attachment/profile/<?php echo $rowPenilaiaan['picture']?>');" >
-											</div>
-											
-											<?php
-										}
-										?>
-										
-									</div>
-									<div class="ayatkategori">
-										<p class="titleKategori">
-											<b>Penilaian</b><br><br>
-											<?php echo $rowPenilaiaan['name']?>
-										</p>
-										
-									</div>
-								</div>
-							</a>
-							
-
-							<?php
-						}
-					}
-					?>
-
-
-
-					
-
+				
+					<!-- SECTION SV REQUEST/ QUERIES AND FORUM  -->
 				</div>
 			</div>
 
